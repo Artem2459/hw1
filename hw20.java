@@ -24,7 +24,7 @@ public class hw20 {
     public static void main(String[] args) {
         BankAccount account = new BankAccount(1000);
 
-        // Create threads for transactions
+   
         Thread thread1 = new Thread(() -> {
             account.deposit(500);
         });
