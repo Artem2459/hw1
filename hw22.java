@@ -21,7 +21,7 @@ public class hw22 {
         int возраст = 16;
         String ожидаемыйВывод = "Моё имя: Артем\nМой возраст: 16\n";
 
-        // Подготовка вывода
+      
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
