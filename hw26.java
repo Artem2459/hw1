@@ -1,70 +1,47 @@
-import javax.swing.*;
-import java.awt.*;
-
-public class hw26 extends JFrame {
-    private JPanel panel;
-    private ImageIcon spriteImage;
-    private JLabel spriteLabel;
-    private int x, y;
-
-    public hw26() {
-        super("Sprite Animation");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
-        setResizable(false);
-
-        panel = new JPanel();
-        panel.setLayout(null);
-        getContentPane().add(panel);
-
-        spriteImage = new ImageIcon("sprite.png");  // Замість "sprite.png" вставте шлях до свого спрайта
-        spriteLabel = new JLabel(spriteImage);
-        spriteLabel.setSize(spriteImage.getIconWidth(), spriteImage.getIconHeight());
-        x = 100;  // Початкові координати X та Y для спрайта
-        y = 100;
-        spriteLabel.setLocation(x, y);
-        panel.add(spriteLabel);
-
-        setVisible(true);
-
-        moveSprite();
-    }
-
-    private void moveSprite() {
-        Thread animationThread = new Thread(() -> {
-            while (true) {
-                // Змінюємо координати спрайта
-                x += 5;
-                y += 3;
-
-
-                SwingUtilities.invokeLater(() -> spriteLabel.setLocation(x, y));
-
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        animationThread.start();
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(hw26::new);
-    }
-}
+//import javax.swing.*;
+//import java.awt.*;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
+//
+//public class SpriteModel {
+//    private int x, y;
+//    private Timer timer;
+//
+//    public SpriteModel() {
+//        x = 100;
+//        y = 100;
+//        timer = new Timer(50, new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                move();
+//            }
+//        });
+//        timer.start();
+//    }
+//
+//    public int getX() {
+//        return x;
+//    }
+//
+//    public int getY() {
+//        return y;
+//    }
+//
+//    private void move() {
+//        x += 5;
+//        y += 3;
+//    }
+//}
 //import javax.swing.*;
 //        import java.awt.*;
 //
-//public class ResizeAnimation extends JFrame {
+//public class SpriteView extends JFrame {
 //    private JPanel panel;
 //    private ImageIcon spriteImage;
 //    private JLabel spriteLabel;
-//    private int width, height;
 //
-//    public ResizeAnimation() {
-//        super("Resize Animation");
+//    public SpriteView() {
+//        super("Sprite Animation");
 //        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        setSize(800, 600);
 //        setResizable(false);
@@ -75,52 +52,43 @@ public class hw26 extends JFrame {
 //
 //        spriteImage = new ImageIcon("sprite.png");
 //        spriteLabel = new JLabel(spriteImage);
-//        width = spriteImage.getIconWidth();
-//        height = spriteImage.getIconHeight();
-//        spriteLabel.setSize(width, height);
+//        spriteLabel.setSize(spriteImage.getIconWidth(), spriteImage.getIconHeight());
 //        spriteLabel.setLocation(100, 100);
 //        panel.add(spriteLabel);
 //
 //        setVisible(true);
-//
-//        resizeSprite();
 //    }
 //
-//    private void resizeSprite() {
-//        Thread animationThread = new Thread(() -> {
-//            boolean increaseSize = true;
-//            while (true) {
-//                if (increaseSize) {
-//                    width += 5;
-//                    height += 5;
-//                } else {
-//                    width -= 5;
-//                    height -= 5;
-//                }
+//    public void updatePosition(int x, int y) {
+//        spriteLabel.setLocation(x, y);
+//    }
+//}
+//import javax.swing.*;
 //
-//                SwingUtilities.invokeLater(() -> {
-//                    spriteLabel.setSize(width, height);
-//                    spriteLabel.setLocation(400 - width / 2, 300 - height / 2);  // Центруємо спрайт у вікні
-//                });
+//public class SpriteController {
+//    private SpriteModel model;
+//    private SpriteView view;
 //
-//                if (width >= 200) {
-//                    increaseSize = false;
-//                } else if (width <= 50) {
-//                    increaseSize = true;
-//                }
+//    public SpriteController(SpriteModel model, SpriteView view) {
+//        this.model = model;
+//        this.view = view;
+//        initView();
+//    }
 //
-//                try {
-//                    Thread.sleep(100);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
+//    private void initView() {
+//        Timer timer = new Timer(50, e -> {
+//            int x = model.getX();
+//            int y = model.getY();
+//            view.updatePosition(x, y);
 //        });
-//        animationThread.start();
+//        timer.start();
 //    }
 //
 //    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(ResizeAnimation::new);
+//        SwingUtilities.invokeLater(() -> {
+//            SpriteModel model = new SpriteModel();
+//            SpriteView view = new SpriteView();
+//            new SpriteController(model, view);
+//        });
 //    }
 //}
-
